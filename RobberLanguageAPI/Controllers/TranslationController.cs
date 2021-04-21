@@ -11,9 +11,15 @@ namespace RobberLanguageAPI.Controllers
 {
   
     [ApiController]
-    [Route("api/RobberLanguage")]
+    [Route("api/RobberLanguage")] // jag ändrar Route-attributet för min Controller
     public class TranslationController : ControllerBase
     {
+
+        /*
+          Här skapar jag en metod som tar in en sträng och
+          översätter den till Rövarspråket. Vanligtvis vill man inte lägga dessa
+          metoder i Controllern, men i övningen ska det göras ändå.. 
+         */
         private static string TranslateSentence(string word)
         {
 
@@ -48,10 +54,13 @@ namespace RobberLanguageAPI.Controllers
             _logger = logger;
         }
 
-        //POST: 
+        //POST: pi/RobberLanguage/CreateNewTranslation
         [HttpPost]
-        [Route("createTranslation")]
+        [Route("createTranslation")] //jag ändrar mitt Route-attribut för POST-endpoint
 
+        /*Här skapar jag en POST-endpoint som returernar ett Translation-objekt. Detta objekt
+         innehåller värden för OriginalSentence och TraslatedSentence.
+        Nu kan man köra och testa programmet. */
         public Translation createTranslation(Translation originalSentence)
         {
             var Translation = new Translation
