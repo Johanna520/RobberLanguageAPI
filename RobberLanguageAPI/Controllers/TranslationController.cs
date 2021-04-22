@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using RobberLanguageAPI.Modell;
+using RobberLanguageAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,11 @@ namespace RobberLanguageAPI.Controllers
 {
   
     [ApiController]
-    [Route("api/RobberLanguage")] // jag ändrar Route-attributet för min Controller
+    [Route("api/RobberLanguage")] // Här ändrar jag Route-attributet för min Controller
+
+    //Controller : en klass som innehåller flera actions. Actions är något som händer i
+    // ASP.NET Core programmet. Men här, istället för att retuerna en view, kan man se det som
+    // om att varje action returnera ett json-objekt. Ett slags svar på ett web-Api-anrop.
     public class TranslationController : ControllerBase
     {
 
@@ -54,9 +58,9 @@ namespace RobberLanguageAPI.Controllers
             _logger = logger;
         }
 
-        //POST: pi/RobberLanguage/CreateNewTranslation
+        //POST: api/RobberLanguage/CreateNewTranslation
         [HttpPost]
-        [Route("createTranslation")] //jag ändrar mitt Route-attribut för POST-endpoint
+        [Route("createTranslation")] //jag ändrar mitt Route-attribut för action (POST-endpoint)
 
         /*Här skapar jag en POST-endpoint som returernar ett Translation-objekt. Detta objekt
          innehåller värden för OriginalSentence och TraslatedSentence.
