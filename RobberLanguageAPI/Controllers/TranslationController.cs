@@ -1,17 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RobberLanguageAPI.Data;
 using RobberLanguageAPI.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mime;
 using System.Threading.Tasks;
 
 namespace RobberLanguageAPI.Controllers
 {
-  
+
 
     [ApiController]
     [Route("api/RobberLanguage")] // Här ändrar jag Route-attributet för min Controller
@@ -65,6 +60,7 @@ namespace RobberLanguageAPI.Controllers
             _logger = logger;
             _context = context;
         }
+       
 
         //POST: api/RobberLanguage/CreateNewTranslation
         [HttpPost]
@@ -73,27 +69,32 @@ namespace RobberLanguageAPI.Controllers
         /*Här skapar jag en POST-endpoint som returernar ett Translation-objekt. Detta objekt
          innehåller värden för OriginalSentence och TraslatedSentence.
         Nu kan man köra och testa programmet. */
-        public async Task <ActionResult<Translation>> createTranslation(Translation originalSentence)
+        public async Task <ActionResult<Translation>> createTranslation(Translation originalSentence/*Translation translation*/)
         {
+     
+
+
 
             var Translation = new Translation
-            {
+             {
+              
                 OriginalSentence = originalSentence.OriginalSentence,
+
                 TranslatedSentence = $"{TranslateSentence(originalSentence.OriginalSentence) }"
+          
             };
-            
-            if (Translation == null)
-                {
+            if (string.IsNullOrWhiteSpace(Translation.OriginalSentence))
+            {
                 return BadRequest();
             }
-
-            /*
-             * Här sparar vi ner översättningen till Databasen.
-             */
+            /* Här sparar vi ner översättningen till Databasen.
+          */
             await _context.Translations.AddAsync(Translation);
             await _context.SaveChangesAsync();
+       
 
             return Translation;
+
 
         }
 

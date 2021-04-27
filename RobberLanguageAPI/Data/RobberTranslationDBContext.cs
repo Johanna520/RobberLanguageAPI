@@ -23,6 +23,8 @@ namespace RobberLanguageAPI.Data
 
                 await context.Database.EnsureDeletedAsync();
             await context.Database.EnsureCreatedAsync();
+
+
         }
     }
 }
